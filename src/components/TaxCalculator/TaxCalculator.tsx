@@ -8,12 +8,13 @@ import { calculateTax } from "../../services/taxProvider";
 interface taxForm {
     income?: string;
     year?: string;
-};
+}
 
 const TaxCalculator: React.FC = () => {
     const [annualIncome, setAnnualIncome] = useState<string>("");
     const [taxYear, setTaxYear] = useState<string>("");
-    const { taxBrackets, loading, error } = useTaxBrackets(taxYear);
+    const [retryCount, setRetryCount] = useState<number>(0);
+    const { taxBrackets, loading, error } = useTaxBrackets(taxYear, retryCount);
     const [result, setResult] = useState<TaxCalculationResult | null>(null);
     const [validationErrors, setValidationErrors] = useState<taxForm>({});
 
@@ -66,7 +67,15 @@ const TaxCalculator: React.FC = () => {
         setResult(taxResult);
     };
 
-    let isDisabled = () => loading || !taxYear || !!validationErrors.income || !!validationErrors.year;
+    // TODO or further optimization: A user can click retry multiple times, if the API fails fast, the user can make multiple requests in a short period of time.
+    // Add a debounce to the retry button to prevent multiple requests in a short period of time.
+    const handleRetry = () => setRetryCount(prev => prev + 1);
+
+    let isDisabled = () =>
+        loading ||
+        !taxYear ||
+        !!validationErrors.income ||
+        !!validationErrors.year;
 
     return (
         <div data-testid="tax-calculator">
@@ -83,7 +92,9 @@ const TaxCalculator: React.FC = () => {
                     data-testid="annual-income-input"
                 />
                 {validationErrors.income && (
-                    <p className="text-red-500" data-testid="income-error">{validationErrors.income}</p>
+                    <p className="text-red-500" data-testid="income-error">
+                        {validationErrors.income}
+                    </p>
                 )}
             </div>
             <div className="space-x-4 p-5">
@@ -103,8 +114,18 @@ const TaxCalculator: React.FC = () => {
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
                 </select>
+                {error && (
+                    <button
+                        className="text-red-500 mx-5 my-5"
+                        onClick={handleRetry}
+                    >
+                        Retry
+                    </button>
+                )}
                 {validationErrors.year && (
-                    <p className="text-red-500" data-testid="year-error">{validationErrors.year}</p>
+                    <p className="text-red-500" data-testid="year-error">
+                        {validationErrors.year}
+                    </p>
                 )}
             </div>
 
@@ -121,9 +142,11 @@ const TaxCalculator: React.FC = () => {
                 Calculate Tax
             </button>
 
-            {loading && <p>Loading tax bracket information...</p>}
-            {error && <p>Error: {error}</p>}
-            {calculateTax !== null && <TaxResults result={result}/>}
+            {loading && (
+                <p className="my-5 mx-5">Loading tax bracket information...</p>
+            )}
+            {error && <p className="text-red-500 my-5 mx-5">Error: {error}</p>}
+            {calculateTax !== null && <TaxResults result={result} />}
         </div>
     );
 };

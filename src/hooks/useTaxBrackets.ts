@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getTaxBrackets } from "../services/taxProvider";
 import { TaxBracket } from "../types/tax";
 
-export const useTaxBrackets = (year: string) => {
+export const useTaxBrackets = (year: string, retryCount: number) => {
     const [taxBrackets, setTaxBrackets] = useState<TaxBracket[] | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -24,7 +24,7 @@ export const useTaxBrackets = (year: string) => {
             setError(null);
             fetchTaxBrackets()
         };
-    },[year]);
+    },[year, retryCount]);
 
     return {taxBrackets, loading, error}
 }
