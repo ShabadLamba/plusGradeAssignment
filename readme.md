@@ -16,10 +16,10 @@ To get test coverage
 
 Run `npm run test:cov`
 
-Tech Design
+### Tech Design
 https://www.notion.so/Tech-Design-For-Tax-Calculator-18b067ef79f980c1afaaf79a69632853?pvs=4
 
-Decision Log
+### Decision Log
 https://www.notion.so/Decision-Log-For-Plusgrade-Tax-Calculator-189067ef79f980d9ae3cd5300b70622c?pvs=4
 
 Different States of the Application:
