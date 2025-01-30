@@ -28,6 +28,7 @@ describe("TaxCalculator Component Tests", () => {
     it("validates and enables the button when inputs are correct", async () => {
         render(<TaxCalculator />);
 
+        // use act to wait for the state to update
         await act(async () => {
             fireEvent.change(screen.getByTestId("annual-income-input"), {
                 target: { value: "50000" },

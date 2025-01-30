@@ -3,6 +3,7 @@ import { fetchTaxBrackets } from "./api/taxApi";
 
 const TAX_BRACKETS_KEY = "taxBrackets";
 
+// this function fetches tax brackets from the API and stores them in localStorage
 export const getTaxBrackets = async (year: string): Promise<TaxBracket[]> => {
     const cachedData = JSON.parse(
         localStorage.getItem(TAX_BRACKETS_KEY) || "{}"

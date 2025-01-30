@@ -7,7 +7,6 @@ function App() {
       <div className="max-w-lg mx-auto space-y-4 bg-slate-100 rounded p-5 border-gray-400 border-2">
         <TaxCalculator />
       </div>
-      {/* <div className="max-w-lg mx-auto space-y-4 bg-slate-100 rounded p-5 border-gray-400 border-2"></div> */}
     </main>
   );
 }

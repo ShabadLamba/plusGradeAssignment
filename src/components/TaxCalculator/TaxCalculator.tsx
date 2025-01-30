@@ -69,7 +69,7 @@ const TaxCalculator: React.FC = () => {
 
     // TODO or further optimization: A user can click retry multiple times, if the API fails fast, the user can make multiple requests in a short period of time.
     // Add a debounce to the retry button to prevent multiple requests in a short period of time.
-    const handleRetry = () => setRetryCount(prev => prev + 1);
+    const handleRetry = () => setRetryCount((prev) => prev + 1);
 
     let isDisabled = () =>
         loading ||
@@ -90,6 +90,8 @@ const TaxCalculator: React.FC = () => {
                     onChange={handleAnnualIncomeChange}
                     className="p-2 rounded border-gray-400 border-2"
                     data-testid="annual-income-input"
+                    aria-describedby="income-error"
+                    aria-invalid={!!validationErrors.income}
                 />
                 {validationErrors.income && (
                     <p className="text-red-500" data-testid="income-error">
@@ -105,6 +107,8 @@ const TaxCalculator: React.FC = () => {
                     onChange={handleTaxYear}
                     className="p-2 rounded border-gray-400 border-2"
                     data-testid="tax-year-select"
+                    aria-describedby="year-error"
+                    aria-invalid={!!validationErrors.year}
                 >
                     <option value="" disabled>
                         Select Tax Year
@@ -138,6 +142,7 @@ const TaxCalculator: React.FC = () => {
                 onClick={handleCalculateTax}
                 disabled={isDisabled()}
                 data-testid="calculate-tax-button"
+                aria-disabled={isDisabled()}
             >
                 Calculate Tax
             </button>
