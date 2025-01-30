@@ -16,6 +16,12 @@ To get test coverage
 
 Run `npm run test:cov`
 
+Tech Design
+https://www.notion.so/Tech-Design-For-Tax-Calculator-18b067ef79f980c1afaaf79a69632853?pvs=4
+
+Decision Log
+https://www.notion.so/Decision-Log-For-Plusgrade-Tax-Calculator-189067ef79f980d9ae3cd5300b70622c?pvs=4
+
 Different States of the Application:
 
 <img width="632" alt="Screenshot 2025-01-28 at 11 13 24 PM" src="https://github.com/user-attachments/assets/06ec8098-b038-4f82-8994-d451dfa02521" />
