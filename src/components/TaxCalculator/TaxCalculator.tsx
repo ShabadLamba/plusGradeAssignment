@@ -47,19 +47,20 @@ const TaxCalculator: React.FC = () => {
         const rawValue = e.target.value.replace(/\D/g, "");
         const formattedValue = formatValue(rawValue);
         setAnnualIncome(formattedValue);
-        setResult(null);
+        setResult(null); // Reset the result when the form input changes
         setValidationErrors({ ...validationErrors, income: "" });
     };
 
     const handleTaxYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setTaxYear(e.target.value);
-        setResult(null);
+        setResult(null); // Reset the result when the form input changes
         setValidationErrors({ ...validationErrors, year: "" });
     };
 
     const handleCalculateTax = () => {
         if (!validationTaxForm() || !taxBrackets) return;
 
+        // Remove commas from the annnual income and conver it to a number
         const income = annualIncome
             ? parseInt(annualIncome.replace(/,/g, ""), 10)
             : 0;
@@ -71,6 +72,7 @@ const TaxCalculator: React.FC = () => {
     // Add a debounce to the retry button to prevent multiple requests in a short period of time.
     const handleRetry = () => setRetryCount((prev) => prev + 1);
 
+    // Disable the button if the form is invalid, or if the data is loading, or if the tax year is not selected
     let isDisabled = () =>
         loading ||
         !taxYear ||
