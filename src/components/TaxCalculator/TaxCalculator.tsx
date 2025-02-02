@@ -69,7 +69,7 @@ const TaxCalculator: React.FC = () => {
     };
 
     // TODO or further optimization: A user can click retry multiple times, if the API fails fast, the user can make multiple requests in a short period of time.
-    // Add a debounce to the retry button to prevent multiple requests in a short period of time.
+    // Add a throttle to the retry button to prevent multiple requests in a short period of time.
     const handleRetry = () => setRetryCount((prev) => prev + 1);
 
     // Disable the button if the form is invalid, or if the data is loading, or if the tax year is not selected
